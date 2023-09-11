@@ -1,0 +1,60 @@
+--- configure.ac	2011-10-24 15:45:27.000000000 -0400
++++ configure.ac.new	2012-01-26 17:37:30.468843678 -0500
+@@ -280,7 +280,11 @@
+   echo "Checking for libraries to support GUI interface ..."
+   GA_CHECK_GUI([
+     use_gui=yes
+-    GA_SET_LIB_VAR(gui_libs, [sx])
++    if test "$ga_dyn_supplibs" != "yes" ; then
++      GA_SET_LIB_VAR(gui_libs, [sx])
++    else
++      gui_libs="-lsx"
++    fi
+     if test z"$gui_libs_Xext" != 'z'; then
+       gui_libs="$gui_libs -lXext"
+     fi
+@@ -304,7 +308,9 @@
+   else
+     AC_DEFINE(USEFREQ, 0, [Use GetFile from freq])
+   fi
+-  GA_SET_INCLUDE_VAR([gui_inc],[libsx]) 
++  if test "$ga_dyn_supplibs" != "yes" ; then
++    GA_SET_INCLUDE_VAR([gui_inc],[libsx])
++  fi 
+   AC_SUBST(gui_inc)
+   AC_SUBST(gui_libs)
+   AC_DEFINE(USEGUI, 1, [Enable GUI widgets]) 
+@@ -429,7 +435,18 @@
+     ])    
+     GA_UNSET_FLAGS
+   fi
+-  # here's where we could add a macro to look outside supplibs for shapelib
++  # look outside supplibs for shapelib
++  if test "$use_shp" != "yes" -a "$ga_dyn_supplibs" = "yes" ; then
++    echo
++    echo "Checking in system locations for libraries to support shapefiles ..."
++    AC_CHECK_HEADERS([shapefil.h], 
++    [ AC_CHECK_LIB([shp], [main],
++      [ use_shp=yes 
++        shp_inc=""
++        shp_libs="-lshp"
++      ])
++    ])
++  fi
+ fi
+ if test "$use_shp" != "yes" ; then
+   AC_DEFINE(USESHP, 0, [Enable shapefile])
+--- src/Makefile.am	2010-11-23 13:14:27.000000000 -0500
++++ src/Makefile.am.new	2012-01-26 20:53:05.815131660 -0500
+@@ -29,7 +29,11 @@
+ supp_lib_dir		= $(SUPPLIBS)/lib
+ 
+ # Settings used for all binaries
++if USEGUI
++LDADD			=
++else
+ LDADD			= -L$(supp_lib_dir) 
++endif
+ INCLUDES		= $(readline_inc) $(printim_inc) $(grib2_inc) $(gui_inc) $(nc_inc) \
+ 			  $(hdf_inc) $(hdf5_inc) $(geotiff_inc) $(shp_inc) $(gadap_inc) \
+                           $(X_CFLAGS) $(XAW_CFLAGS) $(GD_CFLAGS) $(HDF4_CFLAGS)

@@ -1,0 +1,11 @@
+--- m4/grib2.m4	2008-08-07 11:07:42.000000000 -0400
++++ m4/grib2.m4.new	2012-01-26 22:49:47.799594810 -0500
+@@ -5,7 +5,7 @@
+   ga_check_grib2="no"
+   AC_CHECK_HEADER(grib2.h,
+   [ AC_CHECK_LIB(grib2c, main, 
+-    [ AC_CHECK_LIB(png12, main,
++    [ AC_CHECK_LIB(png, main,
+       [ AC_CHECK_LIB(z, main,
+         [ AC_CHECK_LIB(jasper, main,
+           [ ga_check_grib2="yes"

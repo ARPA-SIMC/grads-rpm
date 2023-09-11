@@ -1,0 +1,60 @@
+diff -up grads-2.0.2/src/gxcntr.c.implicit grads-2.0.2/src/gxcntr.c
+--- grads-2.0.2/src/gxcntr.c.implicit	2012-10-25 07:47:23.000000000 -0600
++++ grads-2.0.2/src/gxcntr.c	2016-12-04 09:11:58.015831611 -0700
+@@ -18,6 +18,7 @@
+ #include <stdio.h>
+ #include <math.h>
+ #include <string.h>
++#include "grads.h"
+ #include "gatypes.h"
+ #include "gx.h"
+ 
+@@ -41,18 +42,6 @@ struct gxclbuf {
+ 
+ #if USESHP==1
+ #include "shapefil.h"
+-/* Structure that contains dBase field metadata */
+-struct dbfld {
+-  struct dbfld *next;           /* Address of next data base field */
+-  DBFFieldType type;            /* string, integer, double, or logical */
+-  char name[12];                /* library interface limits length to 11 charaters */
+-  gaint len;                    /* for type string: width of string
+-				   for type int and double: total number of digits */
+-  gaint prec; 			/* for type double: used with len for format string %len.prec */
+-  gaint index;                  /* index value (for identifying this field in a list of fields) */
+-  gaint flag;                   /* 0==static fiels (same for all shapes), 1==dynamic (varies w/ shape) */
+-  void *value;                  /* field value */
+-};
+ gaint gxshplin (SHPHandle, DBFHandle, struct dbfld *);
+ #endif
+ 
+diff -up grads-2.0.2/src/gxeps.c.implicit grads-2.0.2/src/gxeps.c
+--- grads-2.0.2/src/gxeps.c.implicit	2009-05-06 08:13:43.000000000 -0600
++++ grads-2.0.2/src/gxeps.c	2016-12-04 09:03:41.161102924 -0700
+@@ -302,6 +302,7 @@
+ #include <string.h>
+ #include <math.h>
+ #include <time.h>
++#include "grads.h"
+ 
+ #define max(A, B) ((A) > (B) ? (A) : (B))
+ #define min(A, B) ((A) < (B) ? (A) : (B))
+diff -up grads-2.0.2/src/gxwmap.c.implicit grads-2.0.2/src/gxwmap.c
+--- grads-2.0.2/src/gxwmap.c.implicit	2012-10-25 08:47:00.000000000 -0600
++++ grads-2.0.2/src/gxwmap.c	2016-12-04 09:20:58.107720712 -0700
+@@ -24,14 +24,11 @@
+ #include <stdlib.h>
+ #include <math.h>
+ #include <float.h>
++#include "grads.h"
+ #include "gatypes.h"
+ #include "gx.h"
+ /* #include "gxmap.h" */
+ 
+-int gagby (char *, int, int);
+-void gree();
+-void *galloc(size_t,char *);
+-
+ static gaint imap;
+ static gadouble lomin, lomax, lamin, lamax;
+ static gadouble lonref;    /* Reference longitude for adjustment */

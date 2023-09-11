@@ -1,0 +1,25 @@
+--- src/gagx.c	2012-10-25 10:47:00.000000000 -0400
++++ src/gagx.c.new	2014-02-24 22:29:27.227723077 -0500
+@@ -3639,7 +3639,7 @@
+   else {
+     len = strlen(pcm->shpfname);
+     fnroot = (char *)galloc(len+1,"shpfn");
+-    snprintf(fnroot,len+1,pcm->shpfname);
++    snprintf(fnroot,len+1,"%s",pcm->shpfname);
+   }
+   if ((dbfid = DBFCreate(fnroot))==NULL) {
+     gaprnt(0,"Error in gashpwrt: Unable to create data base file\n");
+@@ -4958,11 +4958,11 @@
+ 
+   if (pcm->ffile != stdout) {
+     if (pcm->fwname) {
+-      snprintf(pout,255,"Wrote %ld of %i elements to ", written, exsz);
++      snprintf(pout,255,"Wrote %ld of %i elements to ", (long)written, exsz);
+       gaprnt (2,pout);
+       gaprnt (2,pcm->fwname);
+     } else {
+-      snprintf(pout,255,"Wrote %ld of %i elements to grads.fwrite", written, exsz);
++      snprintf(pout,255,"Wrote %ld of %i elements to grads.fwrite", (long)written, exsz);
+       gaprnt (2,pout);
+     }
+   
