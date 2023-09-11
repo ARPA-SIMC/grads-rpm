@@ -9,7 +9,7 @@ Summary:        Tool for easy acces, manipulation, and visualization of data
 License:        GPLv2 and MIT
 URL:            http://cola.gmu.edu/grads/
 
-Source0:        ftp://cola.gmu.edu/grads/2.0/grads-%{version}-src.tar.gz
+Source0:        http://cola.gmu.edu/grads/2.0/grads-%{version}-src.tar.gz
 
 Patch0:		https://raw.githubusercontent.com/ARPA-SIMC/grads-rpm/v%{version}-%{releaseno}/grads-use-system-libshp_libsx.patch
 Patch1:		https://raw.githubusercontent.com/ARPA-SIMC/grads-rpm/v%{version}-%{releaseno}/grads-libpng.patch
