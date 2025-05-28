@@ -1,6 +1,6 @@
 [![Build Status](https://simc.arpae.it/moncic-ci/grads-rpm/rocky9.png)](https://simc.arpae.it/moncic-ci/grads-rpm/)
-[![Build Status](https://simc.arpae.it/moncic-ci/grads-rpm/fedora38.png)](https://simc.arpae.it/moncic-ci/grads-rpm/)
 [![Build Status](https://simc.arpae.it/moncic-ci/grads-rpm/fedora40.png)](https://simc.arpae.it/moncic-ci/grads-rpm/)
+[![Build Status](https://simc.arpae.it/moncic-ci/grads-rpm/fedora42.png)](https://simc.arpae.it/moncic-ci/grads-rpm/)
 [![Build Status](https://copr.fedorainfracloud.org/coprs/simc/stable/package/grads/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/simc/stable/package/grads/)
 
 # rpm packaging files for grads
