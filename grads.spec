@@ -1,4 +1,4 @@
-%global releaseno 41
+%global releaseno 42
 
 Name:           grads
 Version:        2.0.2
@@ -43,11 +43,21 @@ commonly used operating systems and is freely distributed over the Internet.
 
 %prep
 %setup -q
+# patching syntax changed
+%if 0%{?rhel}
 %patch0 -p0 -b .sys
 %patch1 -p0 -b .png
 %patch2 -p0 -b .fmt
 %patch3 -p1 -b .udunits2
 %patch4 -p1 -b .implicit
+%else
+%patch 0 -p0 -b .sys
+%patch 1 -p0 -b .png
+%patch 2 -p0 -b .fmt
+%patch 3 -p1 -b .udunits2
+%patch 4 -p1 -b .implicit
+%endif
+
 # Use proper grib2c lib name
 sed -i -e 's/LIB(grib2c/LIB(%{g2clib}/' -e 's/-lgrib2c/-l%{g2clib}/' m4/grib2.m4
 # change path to datas to %{_datadir}/%{name}
@@ -93,6 +103,9 @@ cp -a doc __dist_docs/html
 
 
 %changelog
+* Fri Jun 20 2025 Daniele Branchini <dbranchini@arpae.it> - 2.0.2-42
+- Distro-dependent patch syntax
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
